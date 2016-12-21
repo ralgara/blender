@@ -17,8 +17,11 @@ def clear_scene():
     for item in bpy.data.materials:
         bpy.data.materials.remove(item)
 
+def euler(u, v, s, scale):
+    return  scale*1/math.sqrt(2*math.pi*s*s)*math.exp(-(u*u+v*v)/(2*s*s))
 
-def fill_vertices(numX, numY):
+
+def fill_vertices(numX, numY, f):
     verts = []
     for i in range (0, numX):
         for j in range(0,numY):
@@ -28,7 +31,9 @@ def fill_vertices(numX, numY):
             s = variance
             x = scale*u
             y = scale*v
-            z = scale*1/math.sqrt(2*math.pi*s*s)*math.exp(-(u*u+v*v)/(2*s*s))
+            #z = scale*1/math.sqrt(2*math.pi*s*s)*math.exp(-(u*u+v*v)/(2*s*s))
+            z = f(u, v, s, scale)
+            z = z + random.random()
             vert = (x,y,z)
             verts.append(vert)
     return verts
@@ -58,7 +63,7 @@ numY = 100
 variance = .35
 scale = 4
 clear_scene()
-verts = fill_vertices(numX, numY)
+verts = fill_vertices(numX, numY, euler)
 faces = fill_faces(numX, numY)
 
 # create mesh and object
