@@ -1,3 +1,5 @@
+# Blender 2.7 only
+
 import bpy
 import math
 import random
@@ -6,14 +8,14 @@ def clear_scene():
     for item in bpy.context.scene.objects:
         if item.type == 'MESH':
             bpy.context.scene.objects.unlink(item)
-            
+
     for item in bpy.data.objects:
         if item.type == 'MESH':
             bpy.data.objects.remove(item)
-            
+
     for item in bpy.data.meshes:
         bpy.data.meshes.remove(item)
-        
+
     for item in bpy.data.materials:
         bpy.data.materials.remove(item)
 
